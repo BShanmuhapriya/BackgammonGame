@@ -1,4 +1,4 @@
-package org.example;
+package Backgammon;
 import java.util.Scanner;
 import java.util.Random;
 
