@@ -1,18 +1,16 @@
 package Backgammon;
 
-import java.util.*;
 import java.util.Scanner;
 
 public class Message {
-    public void diplayMessage () {
+    public void displayMessage(String playerOneName, String playerTwoName, int matchLength) {
         System.out.println("Welcome to Backgammon Game!");
+        System.out.println(playerOneName + " vs " + playerTwoName);
+        System.out.println("Match Length: " + matchLength);
+    }
 
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.println("Enter player one name: ");
-        String PlayerOneName = scanner.nextLine();
-
-        System.out.println("Enter player two name: ");
-        String PlayerTwoName = scanner.nextLine();
+    public String getPlayerName(int playerNumber, Scanner scanner) {
+        System.out.println("Enter player " + playerNumber + " name: ");
+        return scanner.nextLine();
     }
 }
