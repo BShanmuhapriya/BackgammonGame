@@ -170,7 +170,43 @@ public class Command {
             return offerDouble(currentPlayer, scanner);
         }
     }
+    private void displayHint() {
+        System.out.println("Hint: Consider your moves carefully!");
+    }
 
+    boolean checkEndOfMatch(int[] boardState) {
+        return allPiecesInHomeBoard(boardState, 1) || allPiecesInHomeBoard(boardState, 2);
+    }
+
+    private boolean allPiecesInHomeBoard(int[] boardState, int player) {
+        int startIndex = (player == 1) ? 0 : 18;
+        int endIndex = (player == 1) ? 6 : 24;
+
+        for (int i = startIndex; i < endIndex; i++) {
+            if (boardState[i] * player < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void updateMatchScore(int[] boardState, int currentPlayer, int[] matchScore, boolean doubleOffered) {
+        int winner = getWinner(boardState);
+        if (winner != 0) {
+            boolean isGammon = checkGammon(boardState, winner);
+            boolean isBackgammon = checkBackgammon(boardState, winner);
+
+            int gammonValue = isGammon ? 2 : 1;
+            int backgammonValue = isBackgammon ? 3 : 1;
+
+            int scoreChange = doubleOffered ? STAKE * (gammonValue + backgammonValue) : STAKE;
+            if (doubleAccepted) {
+                scoreChange *= 2;
+            }
+
+            matchScore[winner - 1] += scoreChange;
+        }
+    }
     int getWinner(int[] boardState) {
         int player1Checkers = 0;
         int player2Checkers = 0;
@@ -191,4 +227,5 @@ public class Command {
             return 0;
         }
     }
+
 }
