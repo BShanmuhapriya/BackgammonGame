@@ -1,0 +1,6 @@
+roll
+double
+dice 4 2
+hint
+roll
+quit
