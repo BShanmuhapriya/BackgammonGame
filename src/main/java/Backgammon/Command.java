@@ -207,6 +207,7 @@ public class Command {
             matchScore[winner - 1] += scoreChange;
         }
     }
+
     int getWinner(int[] boardState) {
         int player1Checkers = 0;
         int player2Checkers = 0;
@@ -227,5 +228,28 @@ public class Command {
             return 0;
         }
     }
+    private boolean checkGammon(int[] boardState, int player) {
+        int startIndex = (player == 1) ? 0 : 18;
+        int endIndex = (player == 1) ? 6 : 24;
 
+        for (int i = startIndex; i < endIndex; i++) {
+            if (boardState[i] * player < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkBackgammon(int[] boardState, int player) {
+        int startIndex = (player == 1) ? 0 : 18;
+        int endIndex = (player == 1) ? 6 : 24;
+
+        for (int i = startIndex; i < endIndex; i++) {
+            if (boardState[i] * player < 0 && Math.abs(boardState[i]) > 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
 }
