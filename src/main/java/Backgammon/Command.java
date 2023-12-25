@@ -154,4 +154,41 @@ public class Command {
         customDiceValue1 = 0;
         customDiceValue2 = 0;
     }
+
+    boolean offerDouble(int currentPlayer, Scanner scanner) {
+        System.out.println("Player " + currentPlayer + " offers a double. Respond with 'accept' or 'refuse':");
+        String response = scanner.nextLine();
+        if (response.equalsIgnoreCase("accept")) {
+            System.out.println("Double accepted. The stake is now " + 2 * STAKE);
+            doubleAccepted = true;
+            return true;
+        } else if (response.equalsIgnoreCase("refuse")) {
+            System.out.println("Double refused. Player " + currentPlayer + " gains the current stake.");
+            return false;
+        } else {
+            System.out.println("Invalid response. Please enter 'accept' or 'refuse'.");
+            return offerDouble(currentPlayer, scanner);
+        }
+    }
+
+    int getWinner(int[] boardState) {
+        int player1Checkers = 0;
+        int player2Checkers = 0;
+
+        for (int i = 0; i < 24; i++) {
+            if (boardState[i] > 0) {
+                player1Checkers += boardState[i];
+            } else if (boardState[i] < 0) {
+                player2Checkers += Math.abs(boardState[i]);
+            }
+        }
+
+        if (player1Checkers == 0) {
+            return 2;
+        } else if (player2Checkers == 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }
