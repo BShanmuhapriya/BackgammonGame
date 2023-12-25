@@ -130,4 +130,28 @@ public class Command {
             }
         }
     }
+    void setDiceValues(int diceValue1, int diceValue2) {
+        customDiceValue1 = diceValue1;
+        customDiceValue2 = diceValue2;
+    }
+
+    void rollDice(int[] boardState, int currentPlayer, Random random) {
+        int dice1 = (customDiceValue1 != 0) ? customDiceValue1 : random.nextInt(6) + 1;
+        int dice2 = (customDiceValue2 != 0) ? customDiceValue2 : random.nextInt(6) + 1;
+        int total = dice1 + dice2;
+
+        System.out.println("Player " + currentPlayer + " rolled " + dice1 + " and " + dice2 + " (Total: " + total + ")");
+
+        // Feature: Display the doubling cube with ownership
+        System.out.println("Doubling Cube: " + (doubleAccepted ? "Player " + currentPlayer : "No Ownership"));
+
+        if (total == 2 * STAKE && currentPlayer == 2 && doubleAccepted) {
+            System.out.println("Double was accepted. Player " + currentPlayer + " gets to roll again.");
+            doubleAccepted = false;
+            rollDice(boardState, currentPlayer, random);
+        }
+
+        customDiceValue1 = 0;
+        customDiceValue2 = 0;
+    }
 }
