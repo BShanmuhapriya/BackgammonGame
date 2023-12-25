@@ -30,10 +30,6 @@ public class Board {
         System.out.println();
 
         System.out.println("Pip Numbers:");
-        for (int i = 1; i <= NUM_POINTS; i++) {
-            int pipNumber = getPipNumber(boardState, i, currentPlayer);
-            System.out.println("Point " + i + ": " + pipNumber);
-        }
     }
 
     public static String pipString(int pip) {
