@@ -207,6 +207,16 @@ public class Command {
             matchScore[winner - 1] += scoreChange;
         }
     }
+    public void processCommandsFromFile(String fileName, int[] boardState, int currentPlayer, int[] matchScore, int matchLength, Random random, Scanner scanner) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                processCommand(line, boardState, currentPlayer, matchScore, matchLength, random, scanner);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     int getWinner(int[] boardState) {
         int player1Checkers = 0;
@@ -251,5 +261,4 @@ public class Command {
         }
         return true;
     }
-}
 }
