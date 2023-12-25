@@ -84,4 +84,17 @@ public class Backgammon {
             System.out.println("The match ends in a draw!");
         }
     }
+    static void executeCommandsFromFile(String fileName, int[] boardState, int currentPlayer,
+                                        int[] matchScore, int matchLength, Random random, Scanner scanner) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            Command cmd = new Command();
+            while ((line = br.readLine()) != null) {
+                // Process each line in the file as a command
+                cmd.processCommand(line, boardState, currentPlayer, matchScore, matchLength, random, scanner);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
