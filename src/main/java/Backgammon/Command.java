@@ -84,4 +84,50 @@ public class Command {
             }
         }
     }
+
+    public void processCommand(String command, int[] boardState, int currentPlayer, int[] matchScore, int matchLength, Random random, Scanner scanner) {
+        // Process individual commands
+        String[] tokens = command.split("\\s+");
+        Board board = new Board();
+
+        if (tokens.length > 0) {
+            switch (tokens[0].toLowerCase()) {
+                case "roll":
+                    rollDice(boardState, currentPlayer, random);
+                    break;
+                case "double":
+                    offerDouble(currentPlayer, scanner);
+                    break;
+                // Add other command cases as needed
+                case "dice":
+                    if (tokens[0].toLowerCase().startsWith("dice")) {
+                        // Process dice command
+                        if (tokens.length == 3) {
+                            try {
+                                int diceValue1 = Integer.parseInt(tokens[1]);
+                                int diceValue2 = Integer.parseInt(tokens[2]);
+                                setDiceValues(diceValue1, diceValue2);
+                                System.out.println("Dice values set to: " + diceValue1 + " and " + diceValue2);
+                                // Display the updated board after each move
+                                board.displayBoard(boardState, currentPlayer, matchScore, matchLength, boardState);
+                            } catch (NumberFormatException e) {
+                                System.out.println("Invalid input for dice command. Please enter valid integers.");
+                            }
+                        } else {
+                            System.out.println("Invalid format for dice command. Please enter 'dice <int> <int>'.");
+                        }
+                    }
+                    break;
+                case "hint":
+                    displayHint();
+                    break;
+                case "quit":
+                    System.out.println("Game over. Thanks for playing!");
+                    break;
+                default:
+                    System.out.println("Invalid command: " + tokens[0]);
+                    break;
+            }
+        }
+    }
 }
