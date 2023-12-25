@@ -68,5 +68,20 @@ public class Backgammon {
         }
         System.out.println("Thanks for playing Backgammon!");
     }
+    static int getMatchLength(Scanner scanner) {
+        System.out.println("Enter match length (default is " + MATCH_LENGTH_DEFAULT + "): ");
+        String input = scanner.nextLine();
+        return input.isEmpty() ? MATCH_LENGTH_DEFAULT : Integer.parseInt(input);
+    }
 
+    static void announceMatchWinner(int[] matchScore, String playerOneName, String playerTwoName) {
+        Message message = new Message();
+        if (matchScore[0] > matchScore[1]) {
+            System.out.println(playerOneName + " wins the match!");
+        } else if (matchScore[0] < matchScore[1]) {
+            System.out.println(playerTwoName + " wins the match!");
+        } else {
+            System.out.println("The match ends in a draw!");
+        }
+    }
 }
